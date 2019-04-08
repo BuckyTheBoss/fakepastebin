@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Pastebin{% endblock %}
+{% block content %}
+<div class="container">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				{% for snippet in results %}
+					<div class="card text-center mt-4">
+						<div class="card-body">
+							<h5 class="card-title">{{snippet.title}}</h5>
+							<p class="card-text">{{snippet.textsnippet.content}} {{snippet.urlsnippet.content}}</p>
+							<a href="{% url 'snippet' snippet.id %}" class="btn btn-outline-dark">See Snippet</a>
+						</div>
+						<div class="card-footer text-muted d-flex justify-content-around">
+							<div>Posted: {{snippet.pub_date | timesince}} ago</div>
+							<div>Viewed: {{snippet.views}} times</div>
+							<div>Author: {% if snippet.author == None %}Anonymous{% else %}{{snippet.author.username | capfirst}}{% endif %}</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-2"></div>
+		</div>
+		
+	</div>
+
+{% endblock %}
